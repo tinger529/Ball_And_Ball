@@ -1,0 +1,118 @@
+
+ class Ball {
+
+    field int x, y, r;
+    field int leftWall, rightWall, topWall, bottomWall;
+    field int vx, vy;
+
+    field int wall;
+
+
+    constructor Ball new(int Ax, int Ay, int Ar, int Avx, int Avy) {    	
+	    let x = Ax;		
+        let y = Ay;
+        let r = Ar;
+        let vx = Avx;
+        let vy = Avy;
+	    let leftWall = 1 + Ar;
+	    let rightWall = 511 - Ar; 
+	    let topWall = 1 + Ar; 
+	    let bottomWall = 236 - Ar; 
+        let wall = 0;
+        
+    	
+        do show();
+        return this;
+    }
+
+    method void setv(int mul){
+        let vx=vx*mul;
+        let vy=vy*mul;
+        return;
+    }
+    
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    
+    method void show() {
+        do Screen.setColor(true);
+	    do draw();
+        return;
+    }
+
+    
+    method void hide() {
+        do Screen.setColor(false);
+	    do draw();
+        return;
+    }
+
+    
+    method void draw() {
+        do Screen.drawCircle(x, y, r);
+	    return;
+    }
+
+    
+    method int getLeft() {
+        return x - r;
+    }
+
+    
+    method int getRight() {
+        return x + r;
+    }
+
+    method int getY(){
+        return y + r;
+    }
+
+
+
+    
+    method void move() {
+
+	    do hide();
+
+        let x = x + vx;
+        if (x < (r + 1)){
+            let x = r + 1;
+        }
+        if (x > (511 - r)){
+            let x = 511 - r;
+        }
+        let y = y + vy;
+        if (y < (r + 1)){
+            let y = r + 1;
+        }
+        if (y > (236 - r)){
+            let y = 236 - r;
+        }
+
+        do show();
+
+        //do Sys.wait(100);
+	    return;
+    }
+
+    
+    method void bounce() {
+	    if (x = leftWall){
+            let vx = (-1)*vx;
+        }
+        if (x = rightWall){
+            let vx = (-1)*vx;
+        }
+        if (y = topWall){
+            let vy = (-1)*vy;
+        }
+        if (y = bottomWall){
+            let vy = (-1)*vy;
+        }
+
+	    return;
+    }
+}

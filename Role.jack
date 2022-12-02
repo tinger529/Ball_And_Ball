@@ -1,0 +1,123 @@
+class Role{
+    field int x, y;
+    field int width, height;
+    field int direction; //1 = left, 2 = right
+
+    constructor Role new(int Ax, int Ay, int Awidth, int Aheight){
+        let x = Ax;  //x2=x-5  //x3=x+2
+        let y = Ay;  //y2=y+9  //y3=y+2
+        let width = Awidth;  //width2 = width+10  //width3=width-4
+        let height = Aheight;  //height2= height-13  //height3=height-15
+        let direction = 2;
+
+        do show();
+        return this;
+
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void show(){
+        do Screen.setColor(true);
+        do draw();
+        do draw1();
+        do eye();
+        return;
+    }
+
+    method void hide(){
+        do Screen.setColor(false);
+        do draw();
+        return;
+    }
+
+    method void draw(){
+        do Screen.drawRectangle(x, y, x + width, y + height);
+        do Screen.drawRectangle(x-3,y+9,x-3+width+6,y+9+height-13);
+        return;
+    }
+    method void draw1(){
+        do Screen.setColor(false);
+        do Screen.drawRectangle(x+2, y+2, x + width-2, y + height-13);
+        return;
+    }
+
+    method void eye(){
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x+6,y+8,x+8,y+10);
+        do Screen.drawRectangle(x+14,y+8,x+16,y+10);
+        return;
+    }
+
+    method void setDirection(int Adirection){
+        let direction = Adirection;
+        return;
+    }
+
+    method int getLeft(){
+        return x;
+    }
+
+    method int getRight(){
+        return x + width;
+    }
+
+    method void setWidth(int Awidth){
+        do hide();
+        let width = Awidth;
+        do show();
+        return;
+    }
+
+    method void move(){
+        if (direction = 1){  //left
+            let x = x-10;//4 to 10
+            if (x < 11){
+                let x = 11;
+            }
+            do Screen.setColor(false);
+            do Screen.drawRectangle((x + width) + 1, y, (x + width) + 10, y + height);  //square1 erase
+            do Screen.drawRectangle((x + width) + 5, y+9, (x + width) + 14, y + height-4); //square2 erase
+            do Screen.drawRectangle(x+16,y+8,x+18,y+10);//eye erase
+            do Screen.drawRectangle(x+24,y+8,x+26,y+10);//eye erase
+            do Screen.setColor(true);
+            do Screen.drawRectangle((x + width) - 1, y+2, (x + width), y + height -13); //square3 erase
+            do Screen.drawRectangle((x + width) + 1, y+9, (x + width) + 4, y + height-4); //square2 draw
+            do Screen.drawRectangle(x, y, x + 9, y + height);  //square1 draw
+            do Screen.drawRectangle(x-3, y+9, x+6 , y + height-4);  //square2 draw
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x+2, y+2, x+11, y + height-13); //square3 draw
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x+6,y+8,x+8,y+10);//eye draw
+            do Screen.drawRectangle(x+14,y+8,x+16,y+10);
+
+        }
+        else{
+            let x = x + 10;
+            if ((x + width+11) > 511){
+                let x = 511 - width-11;
+            }
+
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x - 10, y, x -1, y + height);  //square1 erase
+            do Screen.drawRectangle(x - 14, y+9, x -5, y + height-4);  //square2 erase
+            do Screen.drawRectangle(x-4,y+8,x-2,y+10);
+            do Screen.drawRectangle(x+4,y+8,x+6,y+10);
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x,y+2,x+1,y+2+height-15); //square3 erase
+            do Screen.drawRectangle(x - 4, y+9, x - 1, y + height-4);  //square2 draw
+            do Screen.drawRectangle((x + width) - 9, y, x + width+1, y + height); //square1 draw
+            do Screen.drawRectangle((x + width)-6 , y+9, x + width+3, y + height-4);//square2 draw
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x+width-11, y+2, x + width-2, y + height-13); //square3 draw
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x+6,y+8,x+8,y+10);
+            do Screen.drawRectangle(x+14,y+8,x+16,y+10);
+        }
+        
+        return;
+    }
+}

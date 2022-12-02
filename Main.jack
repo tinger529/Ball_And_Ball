@@ -1,0 +1,117 @@
+class Main{
+    function void main(){
+        var int choose;
+        var Title title;
+        var BallGame game;
+        var easy easyy;
+        var hard hardd;
+        var ultimate ultimatee;
+        var boolean exit;
+        var int f1, f2, f3,one;
+        var int x,y,width,height,boxx,boxy,boxx1,boxy1;
+
+        let f1 = 0;
+        let f2 = 0;
+        let f3 = 0;
+        let exit = false;
+        let one=0;
+
+        while (~exit){
+            let title = Title.new(f1, f2, f3);
+
+            if((f1=1)&(f2=1)&(f3=1)){
+                let one=1;
+                let boxx=239;
+                let boxy=115;
+                let boxx1=259;
+                let boxy1=130;
+                let x=450;
+                let y=100;
+                let width=21;
+                let height=27;
+
+                do Screen.setColor(true);
+                do Screen.drawRectangle(boxx,boxy,boxx1,boxy1);
+                do Screen.drawRectangle(x, y, x + width, y + height);
+                do Screen.drawRectangle(x-3,y+9,x-3+width+6,y+9+height-13);
+                do Screen.setColor(false);
+                do Screen.drawRectangle(x+2, y+2, x + width-2, y + height-13);
+                do Screen.setColor(true);
+                do Screen.drawRectangle(x+6,y+8,x+8,y+10);
+                do Screen.drawRectangle(x+14,y+8,x+16,y+10);
+                while(x>(boxx1+10)){
+                    let x = x-10;
+                    do Screen.setColor(false);
+                    do Screen.drawRectangle((x + width) + 1, y, (x + width) + 10, y + height);  //square1 erase
+                    do Screen.drawRectangle((x + width) + 5, y+9, (x + width) + 14, y + height-4); //square2 erase
+                    do Screen.drawRectangle(x+16,y+8,x+18,y+10);//eye erase
+                    do Screen.drawRectangle(x+24,y+8,x+26,y+10);//eye erase
+                    do Screen.setColor(true);
+                    do Screen.drawRectangle((x + width) - 1, y+2, (x + width), y + height -13); //square3 erase
+                    do Screen.drawRectangle((x + width) + 1, y+9, (x + width) + 4, y + height-4); //square2 draw
+                    do Screen.drawRectangle(x, y, x + 9, y + height);  //square1 draw
+                    do Screen.drawRectangle(x-3, y+9, x+6 , y + height-4);  //square2 draw
+                    do Screen.setColor(false);
+                    do Screen.drawRectangle(x+2, y+2, x+11, y + height-13); //square3 draw
+                    do Screen.setColor(true);
+                    do Screen.drawRectangle(x+6,y+8,x+8,y+10);//eye draw
+                    do Screen.drawRectangle(x+14,y+8,x+16,y+10);
+                    do Sys.wait(600);
+                }
+                do Output.moveCursor(18,27);
+                do Output.printString("Press U !!");}
+
+            let choose = title.run();
+            do title.dispose();
+
+
+            if (choose = 2){
+                do BallGame.newInstance();
+                let game = BallGame.getInstance();
+                do game.run();
+                if (game.getTime() > 10){
+                    let f2 = 1;
+                }
+                do game.dispose();
+            }
+
+            if (choose = 1){
+                do easy.newInstance();
+                let easyy = easy.getInstance();
+                do easyy.run();
+                if (easyy.getTime() > 10){
+                    let f1 = 1;
+                }
+                do easyy.dispose();
+            }
+
+            if (choose = 3){
+                do hard.newInstance();
+                let hardd = hard.getInstance();
+                do hardd.run();
+                if (hardd.getTime() > 10){
+                    let f3 = 1;
+                }
+                do hardd.dispose();
+            }
+
+            if ((f1 = 1) & (f2 = 1) & (f3 = 1) & (choose = 4)){
+                do ultimate.newInstance();
+                let ultimatee = ultimate.getInstance();
+                do ultimatee.run();
+                do ultimatee.dispose();
+            }
+
+            if (Keyboard.keyPressed() = 140){
+                let exit = true;
+            }
+
+            do Sys.wait(5000);
+
+        }
+
+        
+       
+        return;
+    }
+}

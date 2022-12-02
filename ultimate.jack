@@ -1,0 +1,184 @@
+class ultimate{
+    static ultimate instance;
+    field Role role;
+    field Ball ball, ball2, ball3, ball4,ball5;
+    field boolean exit, exit2, exit3, exit4,exit5;
+    field int time,mul;
+    field fall plus;
+
+
+    constructor ultimate new(){
+        do Screen.clearScreen();
+        let mul=1;
+        let role = Role.new(220,208,21,27);
+        let ball = Ball.new(480, 40, 20, 15*mul, 15*mul); 
+        let ball2 = Ball.new(150, 60, 30, 10*mul, 10*mul);  
+        let ball3 = Ball.new(70, 60, 50, 5*mul, 5*mul);    
+        let ball4 = Ball.new(200, 30, 5, -50*mul, 50*mul);
+        let ball5 = Ball.new(310, 50, 40,-30,30);
+
+        do Screen.drawRectangle(0,238,511,240);
+        do Output.moveCursor(22,0);
+        do Output.printString("time: 0");
+
+        let exit = false;
+        let time = 0;
+    
+
+        return this;
+
+
+    }
+
+    method void dispose(){
+        do role.dispose();
+        do ball.dispose();
+        do ball2.dispose();
+        do ball3.dispose();
+        do ball4.dispose();
+        do ball5.dispose();
+
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    function void newInstance(){
+        let instance = ultimate.new();
+        return;
+    }
+
+    function ultimate getInstance(){
+        return instance;
+    }
+
+    method void run(){
+        var char key;
+
+        while(~exit){
+            while((key = 0) & (~exit)){
+                let key = Keyboard.keyPressed();
+                do moveBall();
+            }
+            
+            if (key = 130){
+                do role.setDirection(1);
+            }
+            else{
+                if (key = 132){
+                    do role.setDirection(2);
+                }
+                else{
+                    if (key = 140){
+                        let exit = true;
+                    }
+                }
+            }
+
+            while((~(key = 0)) & (~exit)){
+                let key = Keyboard.keyPressed();
+                do role.move();
+                do moveBall();
+            }
+        }
+
+        if (exit){
+            do Output.moveCursor(10,27);
+            do Output.printString("Game Over");
+        }
+        return;
+    }
+
+    method void moveBall(){
+        var int roleLeft, roleRight, ballLeft, ballRight, ballY;
+        var int ball2Left, ball2Right, ball2Y;
+        var int ball3Left, ball3Right, ball3Y;
+        var int ball4Left, ball4Right, ball4Y;
+        var int ball5Left, ball5Right, ball5Y;
+        do ball.move();
+        do ball2.move();
+        do ball3.move();
+        do ball4.move();
+        do ball5.move();
+
+        
+        let roleLeft = role.getLeft() + 3;
+        let roleRight = role.getRight() - 3;
+        let ballLeft = ball.getLeft();
+        let ballRight = ball.getRight();
+        let ballY = ball.getY();
+        let ball2Left = ball2.getLeft();
+        let ball2Right = ball2.getRight();
+        let ball2Y = ball2.getY();
+        let ball3Left = ball3.getLeft();
+        let ball3Right = ball3.getRight();
+        let ball3Y = ball3.getY();
+        let ball4Left = ball4.getLeft();
+        let ball4Right = ball4.getRight();
+        let ball4Y = ball4.getY();
+        let ball5Left = ball5.getLeft();
+        let ball5Right = ball5.getRight();
+        let ball5Y = ball5.getY();
+
+
+                
+        let exit = (roleLeft < ballRight) & (roleRight > ballLeft) & (205 < ballY);
+        let exit2 = (roleLeft < ball2Right) & (roleRight > ball2Left) & (205 < ball2Y);
+        let exit3 = (roleLeft < ball3Right) & (roleRight > ball3Left) & (205 < ball3Y);
+        let exit4 = (roleLeft < ball4Right) & (roleRight > ball4Left) & (205 < ball4Y);
+        let exit5 = (roleLeft < ball5Right) & (roleRight > ball5Left) & (205 < ball5Y);
+
+
+        let exit = exit | exit2 | exit3 | exit4 | exit5;
+        
+                
+        if (~exit){
+            let time = time + 1;
+            if(time=10){
+                do trigger();
+            }
+            if(time>10){
+                //do Output.printString("hello");
+                do plus.down();
+                do plus.getplace(roleLeft,roleRight);
+                let time=time-plus.touch(2);
+            }
+            if((time>20)&(time<30)){
+                do Output.moveCursor(22,10);
+                do Output.printString("WARNING!!   ");
+                do Output.printInt(30-time);
+            }
+            if(time=30){
+                do trigger1();
+            }
+            do Output.moveCursor(22,7);
+            do Output.printInt(time);
+        
+        }
+
+        do ball.bounce();
+        do ball2.bounce();
+        do ball3.bounce();
+        do ball4.bounce();
+        do ball5.bounce();
+        
+
+        return;
+    }
+
+    method void trigger(){
+        let plus=fall.new(10,150,1);
+        return;
+    }
+
+    method void trigger1(){
+        //do Screen.moveCursor(22,10);
+        //do Screen.printString("CRAZY MOOD!!");
+        let mul=2;
+        do ball.setv(mul);
+        do ball2.setv(mul);
+        do ball3.setv(mul);
+        do ball4.setv(mul);
+        return;
+    }
+
+}

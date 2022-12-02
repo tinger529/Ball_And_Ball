@@ -1,0 +1,173 @@
+class Title{
+    field boolean exit;
+    field char key;
+    field int ff1, ff2, ff3;
+    constructor Title new(int f1, int f2, int f3){
+        let ff1 = f1;
+        let ff2 = f2;
+        let ff3 = f3;
+        do Screen.clearScreen();
+//ball
+        do Screen.drawRectangle(92, 40, 94, 80);
+        do Screen.drawCircle(102, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(102, 70, 7);
+        do Screen.setColor(true);
+
+        do Screen.drawCircle(130, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(130, 70, 7);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(140, 60, 142, 80);
+
+        do Screen.drawRectangle(155, 40, 157, 80);
+        do Screen.drawRectangle(170, 40, 172, 80);
+
+//and
+        do Screen.drawCircle(210, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(210, 70, 7);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(220, 60, 222, 80);
+
+        do Screen.drawCircle(239, 68, 7);
+        do Screen.setColor(false);
+        do Screen.drawCircle(239, 71, 7);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(230, 60, 232, 80);
+        do Screen.drawRectangle(246, 63, 248, 80);
+
+        do Screen.drawCircle(265, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(265, 70, 7);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(275, 40, 277, 80);
+
+//ball
+        do Screen.drawRectangle(307, 40, 309, 80);
+        do Screen.drawCircle(317, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(317, 70, 7);
+        do Screen.setColor(true);
+
+        do Screen.drawCircle(345, 70, 10);
+        do Screen.setColor(false);
+        do Screen.drawCircle(345, 70, 7);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(355, 60, 357, 80);
+
+        do Screen.drawRectangle(370, 40, 372, 80);
+        do Screen.drawRectangle(385, 40, 387, 80);
+        
+        
+        do Output.moveCursor(15, 10);
+        do Output.printString("Level1");
+        if (f1 = 1){
+            do Output.moveCursor(16, 10);
+            do Output.printString("Pass!");
+        }
+        do Output.moveCursor(15, 27);
+        do Output.printString("Level2");
+        if (f2 = 1){
+            do Output.moveCursor(16, 27);
+            do Output.printString("Pass!");
+        }
+        do Output.moveCursor(15, 44);
+        do Output.printString("Level3");
+        if (f3 = 1){
+            do Output.moveCursor(16, 44);
+            do Output.printString("Pass!");
+        }
+        
+           
+        
+
+        
+
+        let exit = false;
+        return this;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int run(){
+        var char choice;
+        var int radian;
+        let choice=1;
+        let radian=1;
+        while (~exit){
+            let key = Keyboard.keyPressed();
+            if((key=132)&(choice<3)){
+                let choice=choice+1;
+            }
+            if((key=130)&(choice>1)){
+                let choice=choice-1;
+            }
+            if ((key = 85) & (ff1 = 1) & (ff2 = 1) & (ff3 = 1)){  //U
+                do Screen.setColor(false);
+                do Screen.drawRectangle(20, 10, 500, 200);
+                while(radian<110){
+                    do Screen.setColor(true);
+                    do Screen.drawCircle(249,123,radian+2);
+                    do Screen.setColor(false);
+                    do Screen.drawCircle(249,123,radian);
+                    //do Sys.wait(5);
+                    let radian=radian+5;
+                }
+                do Screen.setColor(true);
+                do Output.moveCursor(15, 25);
+                do Output.printString("PRESS ENTER !!");
+                do Output.moveCursor(11, 27);
+                do Output.printString("ultimate");
+                let choice = 4;
+            }
+            do bonball(choice);
+            if (key = 128){
+                let exit = true;
+            }
+
+        }
+
+        return choice;
+    }
+
+    method void bonball(int u){
+        if(u=1){
+
+            do Screen.setColor(true);
+            do Screen.drawCircle(60,160,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(60,160,5);
+            do Screen.setColor(true);
+            do Screen.drawCircle(60,170,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(60,170,5);
+            return ;}
+        if(u=2){
+            do Screen.setColor(true);
+            do Screen.drawCircle(200,160,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(200,160,5);
+            do Screen.setColor(true);
+            do Screen.drawCircle(200,170,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(200,170,5);
+            return ;
+        }
+        if(u=3){
+            do Screen.setColor(true);
+            do Screen.drawCircle(340,160,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(340,160,5);
+            do Screen.setColor(true);
+            do Screen.drawCircle(340,170,5);
+            do Screen.setColor(false);
+            do Screen.drawCircle(340,170,5);
+            return ;
+        }
+        return;
+    }
+}

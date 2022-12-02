@@ -1,0 +1,85 @@
+class fall{
+
+    field int t0,x0,y;
+    field int roleft,roright;
+    field int bonus;
+    constructor fall new(int t,int x,int y){
+        let t0=t;
+        let y=y;
+        let x0=x;
+        let roleft=-1;
+        let roright=-1;
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x0,y,x0+5,y+10);
+        do Screen.drawRectangle(x0-5,y+4,x0+10,y+6);
+
+        return this;
+    }
+
+    method void down(){
+        //do Output.printString("fuck");
+        if((y+30)<236){
+            let y=y+20;
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x0,y-20,x0+5,y-10);
+            do Screen.drawRectangle(x0-5,y-16,x0+10,y-14);
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x0,y,x0+5,y+10);
+            do Screen.drawRectangle(x0-5,y+4,x0+10,y+6);
+        }
+        if(((y+10)<236)&((y+30)>236)){
+            do Screen.setColor(false);
+            do Screen.drawRectangle(x0,y,x0+5,y+10);
+            do Screen.drawRectangle(x0-5,y+4,x0+10,y+6);
+            let y=226;
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x0,y,x0+5,y+10);
+            do Screen.drawRectangle(x0-5,y+4,x0+10,y+6);
+        }
+        if(y=226){
+            do Screen.setColor(true);
+            do Screen.drawRectangle(x0,y,x0+5,y+10);
+            do Screen.drawRectangle(x0-5,y+4,x0+10,y+6);
+            do text(0);
+        }
+        return;
+        
+    }
+    method void getplace(int roleleft,int roleright){
+        let roleft=roleleft;
+        let roright=roleright;
+        return;
+    }
+
+    method int touch(int i){
+        if(( (x0+5>roleft) & (x0+5<roright) ) |( (x0<roright) & (x0>roleft) )){
+            let x0=x0+150;
+            if(x0>500){
+                let x0=30;
+            }
+            let y=1;
+            do text(i);
+            return 10;
+        }
+        return 0;
+    }
+
+    method void text( int i){
+        if(i=1){
+            do Output.moveCursor(22,9);
+            do Output.printString("                 bonus! time +10");
+            return;
+        }
+        if(i=2){
+            do Output.moveCursor(22,9);
+            do Output.printString("                 oh! time -10");
+            return;
+        }
+        if(i=0){
+            do Output.moveCursor(22,9);
+            do Output.printString("                                ");
+            return;
+        }
+        return;
+    }
+}
